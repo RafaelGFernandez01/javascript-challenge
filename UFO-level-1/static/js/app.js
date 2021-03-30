@@ -1,46 +1,54 @@
 // from data.js
 var tableData = data;
+console.log( 'tableData:', tableData);
 
-console.log('tableData ->', tableData);
+const render = (data) => {
+    const tbodyRef = document
+    .getElementById('ufo-data-table')
+    .getElementsByTagName('tbody' )[0];
 
-for (let index = 0; index < tableData.length; index++) {
-    const element = tableData[index];
-    addRow('ufo-data-table', element);
-}
-// YOUR CODE HERE, analizing to execute functions.
+    console.log('tbodyRef', tbodyRef);
 
+    for (const element of tableData) {
+        console.log('element' , element);
 
-function addRow(tableID, element) {
-    console.log(tableID, element.datetime, element.state);
-    // var table = document.getElementById(tableID);
-
-    // var rowCount = table.rows.length;
-    // var row = table.insertRow(rowCount);
-
-    // var cell1 = row.insertCell(0);
-    // var element1 = document.createElement("input");
-    // element1.type = "checkbox";
-    // element1.name="chkbox[]";
-    // cell1.appendChild(element1);
-
-    // var cell2 = row.insertCell(1);
-    // cell2.innerHTML = rowCount + 1;
-
-    // var cell3 = row.insertCell(2);
-    // var element2 = document.createElement("input");
-    // element2.type = "text";
-    // element2.name = "txtbox[]";
-    // cell3.appendChild(element2);
-}
-
-function filterData(date) {
-    // empetyTable(); // TODO
-    // ...
-    for (let index = 0; index < tableData.length; index++) {
-        const element = tableData[index];
-
-        if (date === element.datetime) {
-            addRow('ufo-data-table', element);
-        }
+        addRow(tbodyRef, element);
     }
-}
+};
+
+const addRow = (tbodyRef, element) => {
+    // Insert a row at the end of the table
+    const newRow = tbodyRef.insertRow();
+
+    //for each col add a new cell
+    const colsAttr = [
+        'datetime',
+        'city',
+        'state',
+        'country',
+        'shape',
+        'durationMinutes',
+        'comments',
+    ];
+
+    for (const col of colsAttr) {
+        const value = element[col];
+    
+        // Insert a cell at the end of the row
+    const newCell = newRow.insertCell();
+
+    //Append a text node to the cell
+    const newText = document.createTextNode(value);
+    newCell.appendChild(newText);
+    }
+};
+
+render(tableData);
+
+
+
+
+
+
+
+
