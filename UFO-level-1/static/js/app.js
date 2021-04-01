@@ -10,10 +10,16 @@ const clearTable = () => {
 };
 
 const getData = () => {
-    
-
-    
-    return tableData;
+    const filterValue = document
+        .getElementById('datetime').value;
+        
+    if (filterValue === '') {
+        return tableData;
+    } else {
+        return tableData.filter((element) => {
+            return element.datetime === filterValue;
+        });    
+    }
 };
 
 const render = () => {
