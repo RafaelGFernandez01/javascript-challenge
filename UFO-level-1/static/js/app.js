@@ -1,17 +1,30 @@
 // from data.js
 var tableData = data;
-console.log( 'tableData:', tableData);
 
-const render = (data) => {
+const clearTable = () => {
+    const oldTbody = document
+        .getElementById('ufo-data-table')
+        .getElementsByTagName('tbody' )[0];
+    const newTbody = document.createElement('tbody');
+    oldTbody.parentNode.replaceChild(newTbody, oldTbody);
+};
+
+const getData = () => {
+    
+
+    
+    return tableData;
+};
+
+const render = () => {
+    clearTable();
+    const dataToRender = getData();
+
     const tbodyRef = document
-    .getElementById('ufo-data-table')
-    .getElementsByTagName('tbody' )[0];
+        .getElementById('ufo-data-table')
+        .getElementsByTagName('tbody' )[0];
 
-    console.log('tbodyRef', tbodyRef);
-
-    for (const element of tableData) {
-        console.log('element' , element);
-
+    for (const element of dataToRender) {
         addRow(tbodyRef, element);
     }
 };
@@ -35,20 +48,16 @@ const addRow = (tbodyRef, element) => {
         const value = element[col];
     
         // Insert a cell at the end of the row
-    const newCell = newRow.insertCell();
+        const newCell = newRow.insertCell();
 
-    //Append a text node to the cell
-    const newText = document.createTextNode(value);
-    newCell.appendChild(newText);
+        //Append a text node to the cell
+        const newText = document.createTextNode(value);
+        newCell.appendChild(newText);
     }
 };
 
-render(tableData);
+document
+    .getElementById('filter-btn')
+    .addEventListener('click', render);
 
-
-
-
-
-
-
-
+render();
